@@ -21,6 +21,28 @@ tests, and review process—not by this repository.
 - `docs/model-routing.md`: model tiers, privacy rules, and delegation policy.
 - `docs/changelog/`: environment changes and migration notes.
 
+## Install in Albada
+
+To use this environment with a local Albada checkout on Windows, clone this
+repository and copy its project configuration into Albada:
+
+```powershell
+$environment = 'C:\Users\bruno\Expansion\Software\Albada Agent Environment'
+$albada = 'C:\Users\bruno\Expansion\Software\albada'
+
+git clone https://github.com/BrunoGilRamirez/Albada-Agent-Environment $environment
+New-Item -ItemType Directory -Force "$albada\.opencode", "$albada\.agents" | Out-Null
+Copy-Item -Recurse -Force "$environment\.opencode\agent" "$albada\.opencode\agent"
+Copy-Item -Force "$environment\.opencode\.gitignore", "$environment\.opencode\package.json", "$environment\.opencode\package-lock.json" "$albada\.opencode"
+Copy-Item -Recurse -Force "$environment\.agents\skills" "$albada\.agents\skills"
+Copy-Item -Force "$environment\opencode.json", "$environment\skills-lock.json" $albada
+```
+
+Start OpenCode from the Albada directory. The copied configuration is ignored
+by Albada's Git repository, so it does not become part of the application
+source. To update the local environment later, pull this repository and repeat
+the copy step.
+
 ## Privacy boundary
 
 This repository must never contain credentials, tokens, sessions, private
