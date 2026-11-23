@@ -14,8 +14,9 @@ tests, and review process—not by this repository.
 
 ## Contents
 
-- `.opencode/agent/`: role-specific agent definitions.
-- `.agents/skills/`: pinned skills used by the creator's environment.
+- `agent/`: role-specific agent definitions, discovered as `.opencode/agent/`
+  when this repository is cloned into Albada.
+- `skills/`: pinned skills discovered as `.opencode/skills/`.
 - `opencode.json`: OpenCode project configuration.
 - `skills-lock.json`: skill sources and integrity hashes.
 - `docs/model-routing.md`: model tiers, privacy rules, and delegation policy.
@@ -24,24 +25,23 @@ tests, and review process—not by this repository.
 ## Install in Albada
 
 To use this environment with a local Albada checkout on Windows, clone this
-repository and copy its project configuration into Albada:
+repository directly as Albada's ignored `.opencode` directory:
 
 ```powershell
-$environment = 'C:\Users\bruno\Expansion\Software\Albada Agent Environment'
 $albada = 'C:\Users\bruno\Expansion\Software\albada'
 
-git clone https://github.com/BrunoGilRamirez/Albada-Agent-Environment $environment
-New-Item -ItemType Directory -Force "$albada\.opencode", "$albada\.agents" | Out-Null
-Copy-Item -Recurse -Force "$environment\.opencode\agent" "$albada\.opencode\agent"
-Copy-Item -Force "$environment\.opencode\.gitignore", "$environment\.opencode\package.json", "$environment\.opencode\package-lock.json" "$albada\.opencode"
-Copy-Item -Recurse -Force "$environment\.agents\skills" "$albada\.agents\skills"
-Copy-Item -Force "$environment\opencode.json", "$environment\skills-lock.json" $albada
+git clone https://github.com/BrunoGilRamirez/Albada-Agent-Environment "$albada\.opencode"
 ```
 
-Start OpenCode from the Albada directory. The copied configuration is ignored
-by Albada's Git repository, so it does not become part of the application
-source. To update the local environment later, pull this repository and repeat
-the copy step.
+Start OpenCode from the Albada directory. OpenCode loads the project
+configuration from `.opencode/opencode.json`, discovers agents from
+`.opencode/agent/`, and discovers skills from `.opencode/skills/`. The nested
+repository is ignored by Albada's Git repository, so it remains an independent
+working repository. To update it later, run:
+
+```powershell
+git -C "$albada\.opencode" pull
+```
 
 ## Privacy boundary
 

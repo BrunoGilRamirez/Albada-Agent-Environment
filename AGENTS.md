@@ -1,7 +1,8 @@
 # Albada Agent Environment Instructions
 
 This repository contains the public, versioned AI-assisted development
-environment used by the creator of Albada.
+environment used by the creator of Albada. It is designed to be cloned as
+Albada's `.opencode` directory.
 
 ## Rules
 
