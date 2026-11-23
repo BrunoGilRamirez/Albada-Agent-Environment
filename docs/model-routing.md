@@ -121,7 +121,7 @@ A monthly spending limit should be configured before using paid models.
     paid `l1-execute` has failed or is clearly insufficient for implementation-
     heavy work. Never use it for domain, persistence, architecture, or privacy
     decisions. A free L3 exists separately as `l3-arch-free`
-    (`opencode/longcat-2.5-preview-free`), usable only under `principal-free` or
+    (`opencode/deepseek-v4.1-flash-free`), usable only under `principal-free` or
     explicit user authorization; never auto-downgrade an L3 decision. When Go
     L3 is available, prefer it for final architecture/privacy decisions.
 11. **Privacy.** Free-tier models may receive repository code, ordinary logs,
@@ -188,40 +188,43 @@ this does not change the separate L1 route for settled routine docs/config edits
 
 | Role | Agent | Model | Why this model |
 | --- | --- | --- | --- |
-| Supervisor (primary) | `principal-free` | `opencode/glm-5.3-flash-free` | GLM 5.3 Flash Free — Zero-Retention privacy. Free supervisor for quota-exhausted sessions. |
-| L1 whole-task fallback | `l1-execute-free` | `opencode/minimax-m3.1-flash-free` | MiniMax M3.1 Flash Free — Zero-Retention privacy. Best free fit here for general implementation while the task remains bounded and one-pass. |
+| Supervisor (primary) | `principal-free` | `opencode/deepseek-v4.1-flash-free` | DeepSeek V4.1 Flash Free — Zero-Retention privacy. Free supervisor for quota-exhausted sessions. |
+| L1 whole-task fallback | `l1-execute-free` | `opencode/hy4-flash-free` | Hy4 Flash Free — Zero-Retention privacy. Best free fit here for general implementation while the task remains bounded and one-pass. |
 | L1 atomic child implementation | `l1-micro-execute-free` | `opencode/beam-free` | Beam Free — no training use, but 30-day retention. Restricted to tiny, exact code-only edits with no personal or confidential data. |
 | L2 domain / persistence | `l2-domain-free` | `opencode/deepseek-v4.1-flash-free` | DeepSeek V4.1 Flash Free — Zero-Retention privacy. Best free fit for Rust, SQL, invariants, and debugging where reasoning quality matters more than latency. |
-| L3 architecture (restricted) | `l3-arch-free` | `opencode/longcat-2.5-preview-free` | LongCat 2.5 Preview Free — Zero-Retention privacy. 1M context plus native multimodal image understanding, ideal for secure architecture docs and diagrams. |
+| L3 architecture (restricted) | `l3-arch-free` | `opencode/deepseek-v4.1-flash-free` | DeepSeek V4.1 Flash Free — Zero-Retention privacy. Best free fit for architecture and privacy decisions where reasoning quality matters most. |
 
 Backup order per role (first available wins). Only Zero-Retention models
 and the explicitly-authorized supervisor exception are listed. Models with
 training-use or trial-logging privacy policies (nemotron, mimo, big-pickle,
 ling) are excluded per 2026-10-05 Zen Privacy review.
 
-- `principal-free`: `opencode/glm-5.3-flash-free` (primary) -> `opencode/longcat-2.5-preview-free`
-- `l1-execute-free`: `opencode/minimax-m3.1-flash-free` (primary) -> `opencode/glm-5.3-flash-free`
-- `l1-micro-execute-free`: `opencode/beam-free` (primary) -> `opencode/glm-5.3-flash-free`
-- `l2-domain-free`: `opencode/deepseek-v4.1-flash-free` (primary) -> `opencode/longcat-2.5-preview-free`
-- `l3-arch-free`: `opencode/longcat-2.5-preview-free` (primary) -> `opencode/glm-5.3-flash-free`
+- `principal-free`: `opencode/deepseek-v4.1-flash-free` (primary) -> `opencode/hy4-flash-free`
+- `l1-execute-free`: `opencode/hy4-flash-free` (primary) -> `opencode/deepseek-v4.1-flash-free`
+- `l1-micro-execute-free`: `opencode/beam-free` (primary) -> `opencode/hy4-flash-free`
+- `l2-domain-free`: `opencode/deepseek-v4.1-flash-free` (primary) -> `opencode/hy4-flash-free`
+- `l3-arch-free`: `opencode/deepseek-v4.1-flash-free` (primary) -> `opencode/hy4-flash-free`
 
-Verification note (2026-10-19): the active free IDs were checked against the
-[OpenCode Console models page](https://opencode.ai/v2/docs/console/models/).
-The current zero-retention assignments are `glm-5.3-flash-free`,
-`deepseek-v4.1-flash-free`, `minimax-m3.1-flash-free`, and
-`longcat-2.5-preview-free`. `beam-free` is limited to the micro-L1 role
-because OpenCode documents 30-day retention for safety, despite no training
-use. Considered and rejected for other roles:
+Verification note (2026-11-23): the free IDs were re-checked against the live
+catalog (`https://opencode.ai/inference/v1/models` and `opencode models`).
+`glm-5.3-flash-free`, `minimax-m3.1-flash-free`, and
+`longcat-2.5-preview-free` are no longer in the catalog. The remaining
+zero-retention free models are `deepseek-v4.1-flash-free` and
+`hy4-flash-free`; those two are the only free assignments. `beam-free` is
+limited to the micro-L1 role because OpenCode documents 30-day retention for
+safety, despite no training use. The paid `glm-5.3-flash` exists but is not a
+free route. Considered and rejected for other roles:
 `opencode/ling-3.0-flash-fin-free`
 (finance-specialized), `opencode/jev-1.13-free` (decision-only model, not a
 coding agent), `opencode/mimo-v2.5-free` (in Zen docs but absent from local
 `/models` output — unverified).
 
-**Privacy verification (2026-10-19):** the OpenCode Console privacy page
-documents GLM 5.3 Flash Free, DeepSeek V4.1 Flash Free, MiniMax M3.1 Flash
-Free, and LongCat 2.5 Preview Free as zero-retention/no-training-use models.
-Beam Free does not use prompts for training but retains them for 30 days, so it
-is not assigned to repository-facing roles. Source: [OpenCode Console privacy](https://opencode.ai/v2/docs/console/models/#privacy).
+**Privacy verification (2026-11-23):** the OpenCode Console privacy page
+documents DeepSeek V4.1 Flash Free and Hy4 Flash Free as zero-retention/
+no-training-use models. GLM 5.3 Flash Free, MiniMax M3.1 Flash Free, and
+LongCat 2.5 Preview Free have been removed from the catalog. Beam Free does
+not use prompts for training but retains them for 30 days, so it is not
+assigned to repository-facing roles. Source: [OpenCode Console privacy](https://opencode.ai/v2/docs/console/models/#privacy).
 
 Quota-exhausted sessions are supervised by `principal-free`
 (`.opencode/agent/principal-free.md`), whose `permission.task` admits only
@@ -241,9 +244,9 @@ The tiers below are registered as named subagents in `.opencode/agent/`, so the
 orchestrating agent can invoke them directly with the Task tool. OpenCode also
 supports Markdown agent files as configuration: files under `.opencode/agent/`
 are auto-discovered, so these agents do not need redundant entries under
-`opencode.json`'s `agent` block. This project keeps role prompts and most role
+`opencode.json`'s `agents` block. This project keeps role prompts and most role
 permissions in those files; `opencode.json` sets `default_agent` and
-`subagent_depth` and retains the principal's task allowlist:
+`experimental.subagent_depth` and retains the principal's task allowlist:
 
 | Agent file | Model | Use for |
 | --- | --- | --- |
@@ -251,11 +254,11 @@ permissions in those files; `opencode.json` sets `default_agent` and
 | `.opencode/agent/l2-domain.md` | `opencode-go/gpt-6-luna` | Rust domain logic, SQL migrations, repositories, deep debugging, import/export |
 | `.opencode/agent/l1-execute.md` | `opencode-go/qwen3.8-flash` | **Default paid L1** for sustained, cross-cutting, multi-concern, or likely iterative UI/CRUD/tests/configuration/documentation work; may use its micro child for atomic code-only slices |
 | `.opencode/agent/fb-kimi.md` | `opencode-go/kimi-k2.7-code` | **Fallback only:** implementation-heavy tool-driven work after L1 is insufficient |
-| `.opencode/agent/l1-execute-free.md` | `opencode/minimax-m3.1-flash-free` (backup order above) | Conservative free whole-task route for very small, exact, one-pass code-only or docs/config tasks; on failure, paid L1 takes over when available |
+| `.opencode/agent/l1-execute-free.md` | `opencode/hy4-flash-free` (backup order above) | Conservative free whole-task route for very small, exact, one-pass code-only or docs/config tasks; on failure, paid L1 takes over when available |
 | `.opencode/agent/l1-micro-execute-free.md` | `opencode/beam-free` (backup order above) | **L1 child only:** short, atomic code-only edits; one task at a time; no shell, search, external paths, or private data |
 | `.opencode/agent/l2-domain-free.md` | `opencode/deepseek-v4.1-flash-free` (backup order above) | Conservative L2 fallback when Go quota is unavailable; failures escalate to paid L2, never to L1 for domain/persistence repair |
-| `.opencode/agent/l3-arch-free.md` | `opencode/longcat-2.5-preview-free` (backup order above) | **Restricted:** free-tier architecture decisions — only in `principal-free` sessions or with explicit user authorization |
-| `.opencode/agent/principal-free.md` | `opencode/glm-5.3-flash-free` (backup order above) | **Primary** free-tier supervisor for quota-exhausted sessions; delegates only to free-tier subagents |
+| `.opencode/agent/l3-arch-free.md` | `opencode/deepseek-v4.1-flash-free` (backup order above) | **Restricted:** free-tier architecture decisions — only in `principal-free` sessions or with explicit user authorization |
+| `.opencode/agent/principal-free.md` | `opencode/deepseek-v4.1-flash-free` (backup order above) | **Primary** free-tier supervisor for quota-exhausted sessions; delegates only to free-tier subagents |
 
 > **L2 model mapping resolution (2026-10-07):** the registered `l2-domain` role
 > uses `opencode-go/gpt-6-luna`, matching its phase assignments and the
@@ -279,12 +282,15 @@ route a settled implementation or docs/config contract directly to L1;
 whole-task free L1 stays reserved for trivial one-pass edits. `l1-execute` may
 use its child for one atomic slice. The Kimi agent is hidden from normal agent
 selection.
-`opencode.json` sets `subagent_depth: 4` to permit the bounded chain
-principal -> L2/L3 -> optional L2/L3 handoff -> L1 -> L1 micro-child;
-per-agent task permissions limit which links in that chain are available.
+`opencode.json` sets `experimental.subagent_depth: 4` to permit the bounded
+chain principal -> L2/L3 -> optional L2/L3 handoff -> L1 -> L1 micro-child;
+per-agent task permissions limit which links in that chain are available. Both
+this key and the `agents` block use the current V2 schema: the top-level
+`subagent_depth` and the singular `agent` keys are marked deprecated in the
+schema and are no longer used.
 
 For quota-exhausted sessions, `.opencode/agent/principal-free.md` registers a
-free-tier primary supervisor (GLM 5.3 Flash Free — `opencode/glm-5.3-flash-free`; fallback: `opencode/longcat-2.5-preview-free`) whose `permission.task`
+free-tier primary supervisor (DeepSeek V4.1 Flash Free — `opencode/deepseek-v4.1-flash-free`; fallback: `opencode/hy4-flash-free`) whose `permission.task`
 admits only `l3-arch-free`, `l2-domain-free`, `l1-execute-free`, `explore`,
 and `general`. Switch to it explicitly when Go quota is exhausted and hand
 supervision back to `principal` when quota recovers. In this free-only session,
@@ -293,9 +299,12 @@ until paid `l1-execute` is available.
 
 ## Installed skills
 
-Curated agent skills live in `.agents/skills/` (hash-verified in
-`skills-lock.json`). `opencode.json` registers the folder via `skills.paths`.
-Installed skills (11):
+Curated agent skills live in `.opencode/skills/` and are hash-verified in
+`.opencode/skills-lock.json`. OpenCode auto-discovers `.opencode/skills` as a
+project skill source, so no `skills` key is required in `opencode.json`
+(an explicit `"skills": [".opencode/skills"]` would be redundant). The object
+form `skills: { paths, urls }` is deprecated in the V2 schema; the current form
+is a plain array. Installed skills (11):
 
 - Autoskills registry (`npx autoskills`): `react-best-practices`,
   `composition-patterns`, `tailwind-css-patterns`,

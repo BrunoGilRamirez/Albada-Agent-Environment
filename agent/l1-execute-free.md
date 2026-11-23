@@ -1,7 +1,7 @@
 ---
-description: Conservative free-model L1 whole-task executor (GLM 5.3 Flash Free). Use only for an exact, very small, low-risk code-only or routine docs/config task expected to finish in one pass. Never use for sustained, cross-cutting, ambiguous, or likely iterative work.
+description: Conservative free-model L1 whole-task executor (Hy4 Flash Free). Use only for an exact, very small, low-risk code-only or routine docs/config task expected to finish in one pass. Never use for sustained, cross-cutting, ambiguous, or likely iterative work.
 mode: subagent
-model: opencode/glm-5.3-flash-free
+model: opencode/hy4-flash-free
 temperature: 0.1
 permission:
   edit: allow

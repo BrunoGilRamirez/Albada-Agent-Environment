@@ -1,7 +1,7 @@
 ---
-description: Principal free-tier supervising agent (GLM 5.3 Flash Free). Use when Go quota is exhausted: classifies work, routes it to free-tier subagents, reviews delegated changes, and enforces JOI-ProjectLife architecture, domain, and privacy policies.
+description: Principal free-tier supervising agent (DeepSeek V4.1 Flash Free). Use when Go quota is exhausted: classifies work, routes it to free-tier subagents, reviews delegated changes, and enforces JOI-ProjectLife architecture, domain, and privacy policies.
 mode: primary
-model: opencode/glm-5.3-flash-free
+model: opencode/deepseek-v4.1-flash-free
 temperature: 0.2
 permission:
   edit: allow

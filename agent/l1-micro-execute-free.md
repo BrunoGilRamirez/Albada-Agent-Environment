@@ -1,8 +1,8 @@
 ---
-description: L1's short-horizon free code executor (GLM 5.3 Flash Free). Use only when l1-execute assigns one precise, low-risk, code-only edit with an exact file scope; never use as a general fallback or planner.
+description: L1's short-horizon free code executor (Beam Free). Use only when l1-execute assigns one precise, low-risk, code-only edit with an exact file scope; never use as a general fallback or planner.
 mode: subagent
 hidden: true
-model: opencode/glm-5.3-flash-free
+model: opencode/beam-free
 temperature: 0.1
 steps: 8
 permission:

@@ -1,9 +1,10 @@
 # Configuration Guide
 
 The repository is the historical source for the creator's OpenCode setup.
-When used locally with Albada, copy or synchronize the relevant `.opencode/`,
-`.agents/`, `opencode.json`, and `skills-lock.json` files into the Albada
-checkout. Those local copies are ignored by Albada's Git configuration.
+When used locally with Albada, clone it as the `.opencode/` directory of the
+Albada checkout. It bundles the agents, skills, `opencode.json`, and
+`skills-lock.json`; those local files are ignored by Albada's Git
+configuration.
 
 The application remains independent of this environment. A contributor can
 work without installing any of these files.
