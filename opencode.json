@@ -1,0 +1,26 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "principal",
+  "subagent_depth": 4,
+  "instructions": ["AGENTS.md"],
+  "skills": {
+    "paths": [".agents/skills"]
+  },
+  "agent": {
+    "principal": {
+      "permission": {
+        "task": {
+          "*": "deny",
+          "l3-arch": "allow",
+          "l2-domain": "allow",
+          "l2-domain-free": "allow",
+          "fb-kimi": "allow",
+          "l1-execute": "allow",
+          "l1-execute-free": "allow",
+          "explore": "allow",
+          "general": "allow"
+        }
+      }
+    }
+  }
+}
